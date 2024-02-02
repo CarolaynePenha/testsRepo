@@ -15,3 +15,8 @@ export async function signUp(req: Request, res: Response) {
   await authService.saveUser(signUpInfos);
   res.sendStatus(201);
 }
+export async function signIn(req: Request, res: Response) {
+  const signInInfos: CreateUser = req.body;
+  const token = await authService.createSession(signInInfos);
+  res.status(201).send({ token });
+}

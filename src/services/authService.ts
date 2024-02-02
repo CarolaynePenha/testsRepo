@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import authRepository from "../repositories/authRepository.js";
 import { CreateUser } from "../controllers/authController.js";
 import {
@@ -9,7 +10,7 @@ import {
 async function saveUser(signUpInfos: CreateUser) {
   const SALT = 10;
   const passwordHash = bcrypt.hashSync(signUpInfos.password, SALT);
-  const emailLowerCase = signUpInfos.email.toLocaleLowerCase();
+  const emailLowerCase = signUpInfos.email.toLowerCase();
   await userExists(emailLowerCase, "signUp");
   await authRepository.postUserInfos({
     email: emailLowerCase,
@@ -28,8 +29,33 @@ async function userExists(email: string, type: string) {
   }
   return user;
 }
+async function createSession(signInInfos: CreateUser) {
+  const emailLowerCase = signInInfos.email.toLowerCase();
+  const user = await userExists(emailLowerCase, "signIn");
+  validPassword(signInInfos.password, user.password);
+  const token = tokenGeneration(user.id);
+  return token;
+}
+function validPassword(textPassword: string, hashPassword: string) {
+  const validation = bcrypt.compareSync(textPassword, hashPassword);
+  if (!validation) {
+    const message = "Invalid email or password";
+    throw unauthorizedError(message);
+  }
+}
+function tokenGeneration(id: number) {
+  const token = jwt.sign(
+    {
+      data: id,
+    },
+    process.env.KEY,
+    { expiresIn: "2h" }
+  );
+  return token;
+}
 
 const authService = {
   saveUser,
+  createSession,
 };
 export default authService;

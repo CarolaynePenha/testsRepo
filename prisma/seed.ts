@@ -11,7 +11,7 @@ async function main() {
       },
     });
   }
-  const categoriesNames = ["projeto", "prática", "recuperação"];
+  const categoriesNames = ["P1", "P2", "Exame"];
   for (let i = 0; i < categoriesNames.length; i++) {
     await prisma.category.upsert({
       where: { name: categoriesNames[i] },

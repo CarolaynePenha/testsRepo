@@ -1,7 +1,7 @@
 import joi from "joi";
-import { RequestUser } from "../controllers/authController";
+import { CreateUser } from "../controllers/authController";
 
-const signInSchema = joi.object<RequestUser>({
+const signInSchema = joi.object<CreateUser>({
   password: joi
     .string()
     .pattern(
