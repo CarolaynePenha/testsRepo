@@ -25,12 +25,12 @@ async function checkTeacherDiscipline(teacherDisciplineId: number) {
 }
 
 async function getTestsBydisciplines() {
-  const terms = await testRepository.findTestsByDiscipline();
-  return terms;
+  const tests = await testRepository.findTestsByDiscipline();
+  return tests;
 }
 async function getTestsByTeacher() {
-  const terms = await testRepository.findTestsByTeacher();
-  return terms;
+  const tests = await testRepository.findTestsByTeacher();
+  return tests;
 }
 const testService = {
   saveTest,
