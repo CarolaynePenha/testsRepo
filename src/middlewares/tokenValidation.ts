@@ -12,11 +12,12 @@ export default async function tokenValidation(
     const message = "Mandatory token sending";
     throw unauthorizedError(message);
   }
-  const decodedToken = jwt.verify(token, process.env.KEY);
-  console.log("decodedToken: ", decodedToken);
-  if (!decodedToken) {
-    const message = "Invalid token";
+  try {
+    jwt.verify(token, process.env.KEY);
+  } catch (error) {
+    const message = `Invalid token: ${error.message}`;
     throw unauthorizedError(message);
   }
+
   next();
 }

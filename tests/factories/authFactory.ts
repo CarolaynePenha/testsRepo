@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
-import { prisma } from "../../src/config/database";
 import bcrypt from "bcrypt";
-import { CreateUser } from "../../src/controllers/authController";
+import { prisma } from "../../src/config/database.js";
+import { CreateUser } from "../../src/controllers/authController.js";
 
 function createSignUpCredentials() {
   const fakeCapitalLetter = faker.internet.password({

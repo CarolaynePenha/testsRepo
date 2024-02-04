@@ -16,7 +16,7 @@ export async function postTest(req: Request, res: Response) {
 }
 
 export async function getTests(req: Request, res: Response) {
-  const { filter } = req.query;
+  const filter = req.query.filter;
   if (filter === TYPE_QUERY.DISCIPLINE) {
     const tests = await testService.getTestsBydisciplines();
     return res.status(200).send(tests);
@@ -27,5 +27,5 @@ export async function getTests(req: Request, res: Response) {
     return;
   }
   const message = "Mandatory query string sending";
-  throw badRequestError;
+  throw badRequestError(message);
 }

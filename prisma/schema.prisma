@@ -55,7 +55,16 @@ model TeacherDiscipline {
   test         Test[]
 
   @@unique([disciplineId, teacherId])
-  @@map("teacherDisciplines ")
+  @@map("teacherDisciplines")
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name      String   @unique
+  test      Test[]
+
+  @@map("categories")
 }
 
 model Test {
@@ -63,7 +72,8 @@ model Test {
   createdAt           DateTime          @default(now())
   name                String
   pdfUrl              String
-  category            String            @unique
+  categoryId          Int
+  category            Category          @relation(fields: [categoryId], references: [id])
   teacherDisciplineId Int
   teacherDiscipline   TeacherDiscipline @relation(fields: [teacherDisciplineId], references: [id])
 
