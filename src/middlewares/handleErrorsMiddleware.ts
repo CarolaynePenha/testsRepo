@@ -4,8 +4,12 @@ const serviceErrorToStatusCode = {
   unauthorized: 401,
   notFound: 404,
   conflict: 409,
+  badRequest: 400,
 };
 
+export function badRequestError(message: string) {
+  return { type: "badRequest", message };
+}
 export function unauthorizedError(message: string) {
   return { type: "unauthorized", message };
 }

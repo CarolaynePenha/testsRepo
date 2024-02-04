@@ -16,15 +16,6 @@ model User {
   @@map("users")
 }
 
-model Category {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  name      String   @unique
-  Test      Test[]
-
-  @@map("categories")
-}
-
 model Discipline {
   id                Int                 @id @default(autoincrement())
   createdAt         DateTime            @default(now())
@@ -61,7 +52,7 @@ model TeacherDiscipline {
   teacher      Teacher    @relation(fields: [teacherId], references: [id])
   disciplineId Int
   discipline   Discipline @relation(fields: [disciplineId], references: [id])
-  Test         Test[]
+  test         Test[]
 
   @@unique([disciplineId, teacherId])
   @@map("teacherDisciplines ")
@@ -72,8 +63,7 @@ model Test {
   createdAt           DateTime          @default(now())
   name                String
   pdfUrl              String
-  categoryId          Int
-  category            Category          @relation(fields: [categoryId], references: [id])
+  category            String            @unique
   teacherDisciplineId Int
   teacherDiscipline   TeacherDiscipline @relation(fields: [teacherDisciplineId], references: [id])
 

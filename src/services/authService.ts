@@ -49,7 +49,7 @@ function tokenGeneration(id: number) {
       data: id,
     },
     process.env.KEY,
-    { expiresIn: "2h" }
+    { expiresIn: "1h" }
   );
   return token;
 }
