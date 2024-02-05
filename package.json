@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm i && tsc",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "dev": "nodemon src/server.ts",
     "db-seed":"dotenv -e .env.test prisma db seed ",
     "test": "dotenv -e .env.test prisma migrate dev && npm run db-seed && cross-env NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -- -i"
